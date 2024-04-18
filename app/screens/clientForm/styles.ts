@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 export const container: ViewStyle = {
   flex: 1,
@@ -15,4 +15,8 @@ export const input: ViewStyle = {
 };
 export const errorInput: ViewStyle = {
   borderColor: "red",
+};
+
+export const errorText: TextStyle = {
+  color: "red",
 };

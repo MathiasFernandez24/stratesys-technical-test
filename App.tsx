@@ -1,13 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import ClientsProvider from "./app/contexts/ClientProvider";
 import Navigation from "./app/navigation/Navigation";
-import { NavigationContainer } from "@react-navigation/native";
+// import { UserProvider } from "./app/contexts/ClientContext";
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <ClientsProvider>
       <Navigation />
-    </NavigationContainer>
+    </ClientsProvider>
   );
 }
 

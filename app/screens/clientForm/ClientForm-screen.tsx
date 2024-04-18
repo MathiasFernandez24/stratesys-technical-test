@@ -1,16 +1,30 @@
 import { Formik } from "formik";
-import React from "react";
-import { Button, StyleSheet, TextInput, View } from "react-native";
+import React, { useState } from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import * as Yup from "yup";
+import { useContextClientsList } from "../../contexts/ClientProvider";
 import { propsClientFormScreenType } from "../../navigation/types";
-import { container, errorInput, input } from "./styles";
+import { container, errorInput, errorText, input } from "./styles";
 import { valuesFormType } from "./types";
 
-const ClientFormSceen = ({ route }: propsClientFormScreenType) => {
+const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
   const { client } = route.params;
+  const { updateClient, addClient, clientsList } = useContextClientsList();
+  const [idError, setidError] = useState(false);
   const isNewClient = !client;
+
   const handleSubmitValues = (values: valuesFormType) => {
-    console.log(values);
+    if (isNewClient) {
+      if (clientsList.some((item: valuesFormType) => item.id == values.id)) {
+        setidError(true);
+        return;
+      } else {
+        addClient(values);
+      }
+    } else {
+      updateClient(values);
+    }
+    navigation.goBack();
   };
 
   const validationSchema = Yup.object().shape({
@@ -46,14 +60,20 @@ const ClientFormSceen = ({ route }: propsClientFormScreenType) => {
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <View>
-            <TextInput
-              style={[input, errors.id ? errorInput : null]}
-              placeholder="Id"
-              inputMode="numeric"
-              onChangeText={handleChange("id")}
-              onBlur={handleBlur("Id")}
-              value={values.id?.toString()}
-            />
+            {isNewClient && (
+              <TextInput
+                style={[input, errors.id ? errorInput : null]}
+                placeholder="Id"
+                inputMode="numeric"
+                onChangeText={
+                  handleChange("id")
+                  // isIdUsed(parseInt(value));
+                }
+                onBlur={handleBlur("Id")}
+                value={values.id?.toString()}
+              />
+            )}
+            {idError && <Text style={errorText}>"Id ya registrado"</Text>}
             <TextInput
               style={[input, errors.name ? errorInput : null]}
               placeholder="Name"
@@ -91,7 +111,18 @@ const ClientFormSceen = ({ route }: propsClientFormScreenType) => {
               onBlur={handleBlur("Address")}
               value={values.address}
             />
-            <Button title="Save" onPress={handleSubmit} />
+            <Button
+              title="Save"
+              onPress={handleSubmit}
+              disabled={
+                !!errors.address ||
+                !!errors.cel ||
+                !!errors.email ||
+                !!errors.id ||
+                !!errors.lastName ||
+                !!errors.name
+              }
+            />
           </View>
         )}
       </Formik>

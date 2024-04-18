@@ -3,19 +3,22 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import ClientFormSceen from "../screens/clientForm/ClientForm-screen";
 import ClientListScreen from "../screens/clientList/ClientList-screen";
+import { NavigationContainer } from "@react-navigation/native";
 
 const Navigation = () => {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen name={"ClientList"} component={ClientListScreen} />
-      <Stack.Screen
-        name={"ClientForm"}
-        component={ClientFormSceen}
-        options={({ route }) => ({ title: route.params?.title })}
-      />
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name={"ClientList"} component={ClientListScreen} />
+        <Stack.Screen
+          name={"ClientForm"}
+          component={ClientFormSceen}
+          options={({ route }) => ({ title: route.params?.title })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

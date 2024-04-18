@@ -6,4 +6,7 @@ export const container: ViewStyle = {
   padding: 8,
   borderRadius: 8,
   backgroundColor: "lightgrey",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
 };
