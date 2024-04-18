@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { FlatList, StyleSheet } from "react-native";
 import ClientItem from "../clientItem/ClientItem";
 import { ListClientsType } from "./types";
 

@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 import ClientsProvider from "./app/contexts/ClientProvider";
 import Navigation from "./app/navigation/Navigation";
-// import { UserProvider } from "./app/contexts/ClientContext";
 
 export default function App() {
   return (

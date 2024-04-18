@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useContextClientsList } from "../../../../contexts/ClientProvider";
+import { RootStackNavigationProp } from "../../../../navigation/types";
 import { container } from "./styles";
 import { clientItemType } from "./types";
-import { RootStackNavigationProp } from "../../../../navigation/types";
-import { AntDesign } from "@expo/vector-icons";
-import { useContextClientsList } from "../../../../contexts/ClientProvider";
 
 const ClientItem = ({ client }: clientItemType) => {
   const navigator: RootStackNavigationProp = useNavigation();
@@ -13,6 +13,7 @@ const ClientItem = ({ client }: clientItemType) => {
   const onHandleDeleteClient = () => {
     deleteClient(client);
   };
+
   return (
     <View style={container}>
       <TouchableOpacity

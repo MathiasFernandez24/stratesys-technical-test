@@ -1,23 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { Button, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import { useContextClientsList } from "../../contexts/ClientProvider";
 import { propsClientListScreenType } from "../../navigation/types";
 import ClientList from "./components/clientList/ClientList";
-import { container } from "./styles";
+import { container, textInputSearch, textSearch } from "./styles";
+import { TextInput } from "react-native-gesture-handler";
+import { valuesFormType } from "../clientForm/types";
 
 const ClientListScreen = ({ navigation }: propsClientListScreenType) => {
   const { getAllClients, clientsList } = useContextClientsList();
-  const test = [
-    { name: "Mathi", id: 2 },
-    { name: "Meli", id: 20 },
-  ];
+  const [clientsfilteredById, setClientsfilteredById] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+
   useEffect(() => {
     getAllClients();
-    console.log(test.some((item) => item.id == 2));
   }, []);
+
+  useEffect(() => {
+    setSearchValue("");
+  }, [clientsList]);
+
+  const onHandlerFilterClientsById = (value: string) => {
+    const listFiltered = clientsList.filter(
+      (item: valuesFormType) => item.id === parseInt(value)
+    );
+    setClientsfilteredById(listFiltered);
+    setSearchValue(value);
+  };
+
   return (
     <View style={container}>
-      <ClientList data={clientsList} />
+      <TextInput
+        value={searchValue}
+        style={textInputSearch}
+        placeholder="Search by Id"
+        inputMode="numeric"
+        onChangeText={onHandlerFilterClientsById}
+      />
+      {!!searchValue.length && !clientsfilteredById.length && (
+        <Text style={textSearch}>No hay coincidencias con la busqueda..</Text>
+      )}
+      <ClientList
+        data={searchValue.length ? clientsfilteredById : clientsList}
+      />
       <Button
         title="New client"
         onPress={() =>

@@ -1,9 +1,9 @@
+import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { StyleSheet } from "react-native";
 import ClientFormSceen from "../screens/clientForm/ClientForm-screen";
 import ClientListScreen from "../screens/clientList/ClientList-screen";
-import { NavigationContainer } from "@react-navigation/native";
 
 const Navigation = () => {
   const Stack = createStackNavigator();

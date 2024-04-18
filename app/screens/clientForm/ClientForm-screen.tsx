@@ -1,6 +1,14 @@
+import { AntDesign } from "@expo/vector-icons";
 import { Formik } from "formik";
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import * as Yup from "yup";
 import { useContextClientsList } from "../../contexts/ClientProvider";
 import { propsClientFormScreenType } from "../../navigation/types";
@@ -9,7 +17,8 @@ import { valuesFormType } from "./types";
 
 const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
   const { client } = route.params;
-  const { updateClient, addClient, clientsList } = useContextClientsList();
+  const { updateClient, addClient, clientsList, deleteClient } =
+    useContextClientsList();
   const [idError, setidError] = useState(false);
   const isNewClient = !client;
 
@@ -49,6 +58,11 @@ const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
     email: isNewClient ? "" : client?.email,
     cel: isNewClient ? undefined : client?.cel,
     address: isNewClient ? "" : client?.address,
+  };
+
+  const onHandleDeleteClient = () => {
+    deleteClient(client);
+    navigation.goBack();
   };
 
   return (
@@ -126,6 +140,11 @@ const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
           </View>
         )}
       </Formik>
+      {/* {!isNewClient && (
+        <TouchableOpacity onPress={onHandleDeleteClient}>
+          <AntDesign name="delete" size={24} color="black" />
+        </TouchableOpacity>
+      )} */}
     </View>
   );
 };
