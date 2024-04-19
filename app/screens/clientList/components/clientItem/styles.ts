@@ -10,3 +10,6 @@ export const container: ViewStyle = {
   flexDirection: "row",
   alignItems: "center",
 };
+export const itemTouchable: ViewStyle = {
+  flex: 1,
+};

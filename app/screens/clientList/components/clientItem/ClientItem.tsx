@@ -4,7 +4,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useContextClientsList } from "../../../../contexts/ClientProvider";
 import { RootStackNavigationProp } from "../../../../navigation/types";
-import { container } from "./styles";
+import { container, itemTouchable } from "./styles";
 import { clientItemType } from "./types";
 
 const ClientItem = ({ client }: clientItemType) => {
@@ -17,6 +17,7 @@ const ClientItem = ({ client }: clientItemType) => {
   return (
     <View style={container}>
       <TouchableOpacity
+        style={itemTouchable}
         onPress={() => {
           navigator.navigate("ClientForm", {
             title: "Edit Client",
