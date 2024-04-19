@@ -17,12 +17,15 @@ Pasos a seguir para ejecutar el proyecto:
 1- Clona este repositorio en tu máquina local:
     git clone https://github.com/MathiasFernandez24/stratesys-technical-test
 
-2- Instala las dependencias en la raiz del proyecto:
+2- Ingresa a la raiz del proyecto:
+    cd stratesys-technical-test
+
+3- Instala las dependencias en la raiz del proyecto:
     npm i
     ó
-    npm install
+    yarn install
 
-3- Ejecuta la aplicacion:
+4- Ejecuta la aplicacion:
     npx expo start
 
-4- Escanea el codigo QR con la app Expo go desde tu dispositivo o presiona la letra "a" si tienes un emulador de android corriendo o la letra "i" si tienes un emulador de Ios corriendo
+5- Escanea el codigo QR con la app Expo go desde tu dispositivo o presiona la letra "a" si tienes un emulador de android corriendo o la letra "i" si tienes un emulador de Ios corriendo
