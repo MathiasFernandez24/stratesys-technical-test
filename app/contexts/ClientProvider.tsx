@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { valuesFormType } from "../screens/clientForm/types";
 import {
   addClientAPI,
@@ -9,7 +9,10 @@ import {
 
 export const ClientsContext = createContext([]);
 
-const ClientsProvider = ({ children }) => {
+type PropsClientsProvider = {
+  children: ReactNode;
+};
+const ClientsProvider = ({ children }: PropsClientsProvider) => {
   const [clientsList, setClientsList] = useState<valuesFormType[]>([]);
 
   return (

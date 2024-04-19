@@ -5,7 +5,6 @@ import { valuesFormType } from "../screens/clientForm/types";
 type RootStackParamList = {
   ClientList: {};
   ClientForm: { client?: valuesFormType; isNewClient: boolean; title: string };
-  // Otras pantallas de la pila de navegación...
 };
 
 type ClientForm = RouteProp<RootStackParamList, "ClientForm">;

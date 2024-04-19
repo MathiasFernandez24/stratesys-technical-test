@@ -31,6 +31,7 @@ const ClientListScreen = ({ navigation }: propsClientListScreenType) => {
   return (
     <View style={container}>
       <TextInput
+        // testID="searchInput"
         value={searchValue}
         style={textInputSearch}
         placeholder="Search by Id"

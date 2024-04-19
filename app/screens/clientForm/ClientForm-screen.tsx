@@ -1,21 +1,13 @@
-import { AntDesign } from "@expo/vector-icons";
 import { Formik } from "formik";
 import React, { useState } from "react";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Button, Text, TextInput, View } from "react-native";
 import * as Yup from "yup";
 import { useContextClientsList } from "../../contexts/ClientProvider";
 import { propsClientFormScreenType } from "../../navigation/types";
 import { container, errorInput, errorText, input } from "./styles";
 import { valuesFormType } from "./types";
 
-const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
+const ClientFormScreen = ({ route, navigation }: propsClientFormScreenType) => {
   const { client } = route.params;
   const { updateClient, addClient, clientsList, deleteClient } =
     useContextClientsList();
@@ -37,7 +29,9 @@ const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
   };
 
   const validationSchema = Yup.object().shape({
-    id: Yup.number().required("Campo requerido"),
+    id: Yup.number()
+      .positive("Debe ser numero entero")
+      .required("Campo requerido"),
     name: Yup.string().required("Campo requerido"),
     lastName: Yup.string().required("Campo requerido"),
     email: Yup.string()
@@ -60,11 +54,6 @@ const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
     address: isNewClient ? "" : client?.address,
   };
 
-  const onHandleDeleteClient = () => {
-    deleteClient(client);
-    navigation.goBack();
-  };
-
   return (
     <View style={container}>
       <Formik
@@ -76,13 +65,10 @@ const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
           <View>
             {isNewClient && (
               <TextInput
-                style={[input, errors.id ? errorInput : null]}
+                style={[input, errors.id || idError ? errorInput : null]}
                 placeholder="Id"
                 inputMode="numeric"
-                onChangeText={
-                  handleChange("id")
-                  // isIdUsed(parseInt(value));
-                }
+                onChangeText={handleChange("id")}
                 onBlur={handleBlur("Id")}
                 value={values.id?.toString()}
               />
@@ -127,7 +113,7 @@ const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
             />
             <Button
               title="Save"
-              onPress={handleSubmit}
+              onPress={() => handleSubmit()}
               disabled={
                 !!errors.address ||
                 !!errors.cel ||
@@ -140,15 +126,8 @@ const ClientFormSceen = ({ route, navigation }: propsClientFormScreenType) => {
           </View>
         )}
       </Formik>
-      {/* {!isNewClient && (
-        <TouchableOpacity onPress={onHandleDeleteClient}>
-          <AntDesign name="delete" size={24} color="black" />
-        </TouchableOpacity>
-      )} */}
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
-
-export default ClientFormSceen;
+export default ClientFormScreen;
